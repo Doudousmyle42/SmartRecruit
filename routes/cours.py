@@ -3,9 +3,9 @@ from app import db
 from models.cours import Cours
 from schemas.cours_schema import CoursInSchema, CoursOutSchema
 
-cours_bp = Blueprint("cours", __name__)
+courses_bp = Blueprint("courses", __name__)
 
-@cours_bp.route("/", methods=["POST"])
+@courses_bp.route("/", methods=["POST"])
 def create_cours():
     data = request.get_json()
     errors = CoursInSchema().validate(data)
@@ -17,18 +17,18 @@ def create_cours():
     db.session.commit()
     return CoursOutSchema().jsonify(cours), 201
 
-@cours_bp.route("/", methods=["GET"])
-def get_cours():
-    cours = Cours.query.all()
-    return CoursOutSchema(many=True).jsonify(cours), 200
+@courses_bp.route("/", methods=["GET"])
+def get_courses():
+    courses = Cours.query.all()
+    return CoursOutSchema(many=True).jsonify(courses), 200
 
-@cours_bp.route("/<int:id>", methods=["GET"])
-def get_cours_by_id(id):
-    cours = Cours.query.get_or_404(id)
-    return CoursOutSchema().jsonify(cours), 200
+@courses_bp.route("/<int:id>", methods=["GET"])
+def get_courses_by_id(id):
+    course = Cours.query.get_or_404(id)
+    return CoursOutSchema().jsonify(course), 200
 
-@cours_bp.route("/<int:id>", methods=["PUT"])
-def update_cours(id):
+@courses_bp.route("/<int:id>", methods=["PUT"])
+def update_courses(id):
     cours = Cours.query.get_or_404(id)
     data = request.get_json()
     errors = CoursInSchema().validate(data)
@@ -40,8 +40,8 @@ def update_cours(id):
     db.session.commit()
     return CoursOutSchema().jsonify(cours), 200
 
-@cours_bp.route("/<int:id>", methods=["DELETE"])
-def delete_cours(id):
+@courses_bp.route("/<int:id>", methods=["DELETE"])
+def delete_courses(id):
     cours = Cours.query.get_or_404(id)
     db.session.delete(cours)
     db.session.commit()

@@ -29,7 +29,7 @@ def create_app():
     # Importer et enregistrer les Blueprints
     from routes.offers import offers_bp
     from routes.candidats import candidates_bp
-    from routes.applications import applications_bp
+    from routes.candidatures import applications_bp
     from routes.cours import courses_bp
     from routes.users import users_bp
     from routes.destinations import destinations_bp
@@ -40,7 +40,7 @@ def create_app():
     app.register_blueprint(courses_bp, url_prefix="/api/courses")
     app.register_blueprint(users_bp, url_prefix="/api/users")
     app.register_blueprint(destinations_bp, url_prefix="/api/destinations")
-
+    
     # Création des tables directement 
     with app.app_context():
         db.create_all()
